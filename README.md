@@ -58,32 +58,23 @@ FastAPI is used to expose the system as an API. This allows the solution to be e
 ---
 
 ## Project Structure
-
-ResolveGPT/
-│
-├── data/
-│ └── tickets.csv
-│
-├── embeddings/
-│ └── embedder.py
-│
-├── vector_store/
-│ └── faiss_index/
-│
-├── retriever/
-│ └── retrieve.py
-│
-├── generator/
-│ └── generate_response.py
-│
-├── api/
-│ └── main.py
-│
-├── requirements.txt
+ResolveGPT/ 
+│ 
+├── app/ 
+│ ├── rag_pipeline.py 
+│ ├── llm_client.py 
+│ ├── embedder.py 
+│ ├── faiss.py 
+│ ├── main.py 
+│ 
+├── templates/ 
+│ └── index.html 
+│ 
+├── data/ 
+│ └── software_tickets.csv 
+│ 
+├── requirements.txt 
 └── README.md
-
-yaml
-Copy code
 
 ---
 
