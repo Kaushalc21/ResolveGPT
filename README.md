@@ -58,7 +58,7 @@ FastAPI is used to expose the system as an API. This allows the solution to be e
 ---
 
 ## Project Structure
-ResolveGPT/ 
+## ResolveGPT/ 
 │ 
 ├── app/ 
 │ ├── rag_pipeline.py 
@@ -75,7 +75,7 @@ ResolveGPT/
 │ 
 ├── requirements.txt 
 └── README.md
-
+##
 ---
 
 ## Example Workflow
