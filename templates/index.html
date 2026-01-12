@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Ticket Resolution</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #eef2f7, #d9e4f5);
+            min-height: 100vh;
+            margin: 0;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: #ffffff;
+            width: 600px;
+            max-width: 90%;
+            padding: 24px;
+            border-radius: 14px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            margin-top: 0;
+            text-align: center;
+            color: #1f2937;
+        }
+
+        textarea {
+            width: 100%;
+            height: 90px;
+            resize: none;
+            padding: 12px;
+            font-size: 14px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 14px;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            background: #2563eb;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border-left: 5px solid #2563eb;
+            white-space: pre-wrap;
+            font-size: 14px;
+            color: #111827;
+        }
+
+        .loading {
+            color: #6b7280;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .error {
+            border-left-color: #dc2626;
+            color: #7f1d1d;
+            background: #fee2e2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>🧠 AI Ticket Resolution</h1>
+
+    <textarea id="query" placeholder="Describe your issue (e.g. FastAPI app crashes under load)"></textarea>
+
+    <button onclick="resolveTicket()">Resolve Ticket</button>
+
+    <div id="result" class="result" style="display:none;"></div>
+</div>
+
+<script>
+async function resolveTicket() {
+    const query = document.getElementById("query").value;
+    const resultDiv = document.getElementById("result");
+
+    if (!query.trim()) {
+        resultDiv.style.display = "block";
+        resultDiv.className = "result error";
+        resultDiv.innerText = "❌ Please enter a valid issue.";
+        return;
+    }
+
+    resultDiv.style.display = "block";
+    resultDiv.className = "result loading";
+    resultDiv.innerText = "⏳ Thinking like a senior engineer...";
+
+    try {
+        const response = await fetch("/resolve", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query: query, top_k: 5 })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.final_answer) {
+            resultDiv.className = "result error";
+            resultDiv.innerText = "❌ Failed to generate resolution.";
+            return;
+        }
+
+        resultDiv.className = "result";
+        resultDiv.innerText = "🧠 LLM Generated Answer:\n\n" + data.final_answer;
+
+    } catch (err) {
+        resultDiv.className = "result error";
+        resultDiv.innerText = "❌ Server error. Check backend logs.";
+    }
+}
+</script>
+
+</body>
+</html>
