@@ -56,26 +56,25 @@ Large Language Models are used to generate natural-language resolution suggestio
 FastAPI is used to expose the system as an API. This allows the solution to be easily integrated with dashboards, internal tools, or external applications. FastAPI was chosen for its performance, simplicity, and clean API design.
 
 ---
-
 ## Project Structure
-## ResolveGPT/ 
-│ 
-├── app/ 
-│ ├── rag_pipeline.py 
-│ ├── llm_client.py 
-│ ├── embedder.py 
-│ ├── faiss.py 
-│ ├── main.py 
-│ 
-├── templates/ 
-│ └── index.html 
-│ 
-├── data/ 
-│ └── software_tickets.csv 
-│ 
-├── requirements.txt 
+
+ResolveGPT/
+├── app/
+│ ├── rag_pipeline.py
+│ ├── llm_client.py
+│ ├── embedder.py
+│ ├── faiss.py
+│ └── main.py
+│
+├── templates/
+│ └── index.html
+│
+├── data/
+│ └── software_tickets.csv
+│
+├── requirements.txt
 └── README.md
-##
+
 ---
 
 ## Example Workflow
